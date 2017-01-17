@@ -11,12 +11,13 @@ class PolComplex(val radius: Double, val azimuth: Angle) {
     new PolComplex(Conversion.radius(real, imag), Conversion.azimuth(real, imag))
   }
 
+//  def *()
+
   override def equals(o: Any): Boolean = {
     println("POL COMPLEX : EQUALS")
     if (!o.isInstanceOf[PolComplex]) return false
     val c: PolComplex = o.asInstanceOf[PolComplex]
-    Comparison.isEqual(Conversion.real(this.radius, this.azimuth), Conversion.real(c.radius, c.azimuth)) &&
-      Comparison.isEqual(Conversion.imag(this.radius, this.azimuth), Conversion.imag(c.radius, c.azimuth))
+    Comparison.isEqual(radius, c.radius) && Comparison.isEqual(azimuth.angle, c.azimuth.angle)
   }
 }
 
