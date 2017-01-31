@@ -41,8 +41,5 @@ trait Reverser[T] {
     reverseTmp(l, List.empty)
   }
 
-  val reverseF: List[T] = (l: List[T], l2: List[T]) => (l, l2) match {
-    case (Nil, x) => x
-    case (x :: xs, a) => reverseTmp(xs, x :: a)
-  }
+  val reverseF: List[T] = (l: List[T], l2: List[T]) => reverseTmp(l, l2)
 }

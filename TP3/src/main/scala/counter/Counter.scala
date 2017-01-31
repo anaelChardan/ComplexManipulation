@@ -2,19 +2,20 @@ package counter
 
 import java.util.Observable
 
-class Counter(var name: String, var count: Int) extends Observable {
-  private[counter] def getCount = count
+case class Counter(var name: String, var _count: Int) extends Observable {
 
-  private[counter] def increment() {
-    //		System.out.println("increment");
-    count += 1
+  def count: Int = _count
+
+  def increment() {
+    System.out.println("increment");
+    _count += 1
     setChanged()
     notifyObservers(count)
   }
 
-  private[counter] def decrement() {
-    //		System.out.println("decrement");
-    count -= 1
+  def decrement() {
+    System.out.println("decrement");
+    _count -= 1
     setChanged()
     notifyObservers(count)
   }
