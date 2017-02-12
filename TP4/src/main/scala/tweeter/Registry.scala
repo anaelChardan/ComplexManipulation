@@ -36,17 +36,17 @@ class Registry extends Actor {
 
 object TestRegistry extends App {
   val r = Registry("registry")
-  // create an "inbox" to interact with registry actor 
-  // (via an internal actor of the inbox) 
+  // create an "inbox" to interact with registry actor
+  // (via an internal actor of the inbox)
   val i = Inbox.create(Registry.system)
   // test the registry
   r ! Bind("Alice", "F")
-  // r ! Lookup("Bob") would not properly instantiate "sender" on the registry 
+  // r ! Lookup("Bob") would not properly instantiate "sender" on the registry
   // side as the execution of the send action does not take place in the context
   // of an actor
   i.send(r, Lookup("Bob"))
   i.send(r, Lookup("Alice"))
-//  r ? Lookup("Bobo")
+  //  r ? Lookup("Bobo")
   println("PLOP")
   println(i.receive(FiniteDuration(1, MILLISECONDS)))
   println(i.receive(FiniteDuration(1, MILLISECONDS)))

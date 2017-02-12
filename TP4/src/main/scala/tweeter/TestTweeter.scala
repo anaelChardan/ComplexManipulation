@@ -1,6 +1,7 @@
 package tweeter
 
 object TestTweeter extends App {
+
   import Tweeter._
 
   val ALICE = "Alice"
@@ -19,5 +20,5 @@ object TestTweeter extends App {
   Thread.sleep(1000)
 
   alice ! Tweet("I am Alice")
-//  bob ! Tweet("I am Bob")
+  //  bob ! Tweet("I am Bob")
 }
