@@ -1,8 +1,10 @@
 package tweeter
 
 import akka.actor.{Actor, ActorRef, Props}
-import tweeter.Registry.{Bind, Lookup, LookupAnswer}
-import tweeter.TweeterView.{RegisterTweeter, TweetView}
+import registry.Registry
+import registry.Registry.{Bind, Lookup, LookupAnswer}
+import tweeterToGui.TweeterView
+import tweeterToGui.TweeterView.{RegisterTweeter, TweetView}
 
 /**
   * Created by anael on 31/01/2017.
@@ -24,6 +26,7 @@ object Tweeter {
   def apply(name: String, registry: ActorRef): ActorRef = Registry.system.actorOf(Props(new Tweeter(name, registry, TweeterView(name))), name)
 }
 
+//L'objet passif
 class Tweeter(val name: String, val registry: ActorRef, val tweeterView: ActorRef) extends Actor {
 
   import Tweeter._

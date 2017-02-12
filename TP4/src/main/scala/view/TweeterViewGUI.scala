@@ -1,11 +1,11 @@
-package tweeter
+package view
 
+import java.awt.Dimension
 import java.awt.event.ActionEvent
-import java.awt.{Container, Dimension}
 import javax.swing._
 
-import akka.actor.ActorRef
-import tweeter.TweeterView.Retweet
+import tweeterToGui.TweeterView
+import tweeterToGui.TweeterView.Retweet
 
 /**
   * Created by anael on 12/02/2017.
@@ -34,12 +34,7 @@ class TweeterViewGUI(val name: String) extends JFrame {
     this display ".....::::ZONE DE TWEET::::....."
   }) ()
 
-
+  //Permet d'afficher les tweets reçu
   def display(message: String): Unit = textArea append message + "\n"
-
-}
-
-object TweeterViewGUI {
-
 }
 

@@ -1,4 +1,6 @@
-package tweeter
+import registry.Registry
+import tweeter.Tweeter
+import tweeterToGui.TweeterView.Retweet
 
 object TestTweeter extends App {
 
@@ -6,19 +8,19 @@ object TestTweeter extends App {
 
   val ALICE = "Alice"
   val BOB = "Bob"
+  val CAROL = "Carol"
 
   val r = Registry("registry")
 
   val bob = Tweeter(BOB, r)
   val alice = Tweeter(ALICE, r)
+  val carol = Tweeter(CAROL, r)
 
-  alice ! Tweet("I am Alice")
-
+  carol ! Follow(BOB)
   bob ! Follow(ALICE)
-  alice ! Follow(BOB)
 
   Thread.sleep(1000)
 
   alice ! Tweet("I am Alice")
-  //  bob ! Tweet("I am Bob")
+  bob ! Retweet
 }
