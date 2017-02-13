@@ -1,6 +1,5 @@
 import registry.Registry
 import tweeter.Tweeter
-import tweeterToGui.TweeterView.Retweet
 
 object TestTweeter extends App {
 
@@ -18,9 +17,10 @@ object TestTweeter extends App {
 
   carol ! Follow(BOB)
   bob ! Follow(ALICE)
+  alice ! Follow(BOB)
+  alice ! Follow(CAROL)
 
   Thread.sleep(1000)
 
   alice ! Tweet("I am Alice")
-  bob ! Retweet
 }
