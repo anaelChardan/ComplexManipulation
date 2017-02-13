@@ -21,11 +21,13 @@ object TweeterView {
   //Classe d'information a la vue
   case class TweetView(source: String, content: String)
 
+  //Information de tweet au tweeter
   case class MakeATweet(content: String)
 
+  //Affichage d'un retweet
   case class RetweetView(retweeter: String, tweeter: String, content: String)
 
-  //Retweeter
+  //Information de retweet au tweeter
   case class RetweetLastTweet()
 
   //Enregistrement du tweeter pour prendre en charge les retweets
@@ -35,7 +37,7 @@ object TweeterView {
     Registry.system.actorOf(Props(new TweeterView(new TweeterViewGUI(name))))
 }
 
-//Class pour contenir a message et son utilisateur
+//Classe pour contenir un message et son utilisateur
 case class UserContent(username: String, content: String, var retweeted: Boolean = false)
 
 //Objet passif

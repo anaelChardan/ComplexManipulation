@@ -21,7 +21,11 @@ class TweeterViewGUI(val name: String) extends JFrame(name) {
   val HEIGHT_CONTENT: Int = 400
   var view: Option[TweeterView] = None
 
-  (() => {
+  javax.swing.SwingUtilities.invokeLater(() => {
+    createAndShowGUI()
+  })
+
+  def createAndShowGUI(): Unit = {
     this setDefaultCloseOperation WindowConstants.EXIT_ON_CLOSE
     this setPreferredSize new Dimension(WIDTH_CONTENT, HEIGHT_CONTENT)
 
@@ -36,7 +40,7 @@ class TweeterViewGUI(val name: String) extends JFrame(name) {
     val tweetButton = new JButton("Tweeter")
     val retweetButton = new JButton("Retweeter")
 
-    val tweetZone = new JTextArea()
+    val tweetZone = new JTextArea(".....::::ZONE DE TWEET::::.....")
 
     retweetButton.addActionListener((_: ActionEvent) => doIfViewIsDefined((value) => value.self ! RetweetLastTweet))
     tweetButton.addActionListener((_: ActionEvent) => if (!tweetZone.getText.trim.isEmpty) {
@@ -47,12 +51,14 @@ class TweeterViewGUI(val name: String) extends JFrame(name) {
     getContentPane add tweetZone
     getContentPane add tweetButton
     getContentPane add retweetButton
-
-    this display ".....::::ZONE DE TWEET::::....."
-  }) ()
+  }
 
   //Permet d'afficher les tweets reçu
-  def display(message: String): Unit = textArea append message + "\n"
+  def display(message: String): Unit = {
+    javax.swing.SwingUtilities.invokeLater(() => {
+      textArea append message + "\n"
+    })
+  }
 
   def doIfViewIsDefined(f: TweeterView => Unit): Unit = {
     view.fold(this display "TweeterView inconnue")(value => f(value))
