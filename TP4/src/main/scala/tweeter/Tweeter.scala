@@ -58,9 +58,9 @@ class Tweeter(val name: String, val registry: ActorRef, val tweeterView: ActorRe
     case AddFollower(follower: Tweeter) => this.followers += follower
 
     case LookupAnswer(value: Option[Any]) =>
-      value.foreach {
-        case (follower: Tweeter) => follower.self ! AddFollower(this)
-        case _ =>
+      value match {
+        case Some(follower: Tweeter) => follower.self ! AddFollower(this)
+        case None => println("La personne que vous avez demandée n'existe pas")
       }
   }
 }
