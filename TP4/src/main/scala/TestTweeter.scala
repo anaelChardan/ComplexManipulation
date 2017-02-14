@@ -20,6 +20,8 @@ object TestTweeter extends App {
   alice ! Follow(BOB)
   alice ! Follow(CAROL)
 
+  bob ! Follow("TEST")
+
   Thread.sleep(1000)
 
   alice ! Tweet("I am Alice")

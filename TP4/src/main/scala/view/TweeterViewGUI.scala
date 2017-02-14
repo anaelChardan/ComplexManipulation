@@ -11,21 +11,25 @@ import tweeterToGui.TweeterView.{MakeATweet, RetweetLastTweet}
   * Created by anael on 12/02/2017.
   */
 class TweeterViewGUI(val name: String) extends JFrame(name) {
-  var textArea: JTextArea = {
-    val area = new JTextArea()
+  val textArea: JTextArea = {
+    val area = new JTextArea(".....::::ZONE DE TWEET::::.....\n")
     area.setEditable(false)
     area
   }
 
-  val WIDTH_CONTENT: Int = 400
-  val HEIGHT_CONTENT: Int = 400
   var view: Option[TweeterView] = None
 
-  javax.swing.SwingUtilities.invokeLater(() => {
-    createAndShowGUI()
-  })
+  invokeLater(() => createAndShowGUI())
 
-  def createAndShowGUI(): Unit = {
+  private def createAndShowGUI(): Unit = {
+
+    def doIfViewIsDefined(f: TweeterView => Unit): Unit = {
+      view.fold(this display "TweeterView inconnue")(value => f(value))
+    }
+
+    val WIDTH_CONTENT: Int = 400
+    val HEIGHT_CONTENT: Int = 400
+
     this setDefaultCloseOperation WindowConstants.EXIT_ON_CLOSE
     this setPreferredSize new Dimension(WIDTH_CONTENT, HEIGHT_CONTENT)
 
@@ -40,7 +44,7 @@ class TweeterViewGUI(val name: String) extends JFrame(name) {
     val tweetButton = new JButton("Tweeter")
     val retweetButton = new JButton("Retweeter")
 
-    val tweetZone = new JTextArea(".....::::ZONE DE TWEET::::.....")
+    val tweetZone = new JTextArea()
 
     retweetButton.addActionListener((_: ActionEvent) => doIfViewIsDefined((value) => value.self ! RetweetLastTweet))
     tweetButton.addActionListener((_: ActionEvent) => if (!tweetZone.getText.trim.isEmpty) {
@@ -55,13 +59,11 @@ class TweeterViewGUI(val name: String) extends JFrame(name) {
 
   //Permet d'afficher les tweets reçu
   def display(message: String): Unit = {
-    javax.swing.SwingUtilities.invokeLater(() => {
-      textArea append message + "\n"
-    })
+    invokeLater(() => textArea append message + "\n")
   }
 
-  def doIfViewIsDefined(f: TweeterView => Unit): Unit = {
-    view.fold(this display "TweeterView inconnue")(value => f(value))
+  private def invokeLater(runnable: Runnable): Unit = {
+    javax.swing.SwingUtilities.invokeLater(runnable)
   }
 }
 
